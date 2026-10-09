@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI World Content Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#10121c;color:#fff;padding:20px}
+main{max-width:650px;margin:auto}
+header{text-align:center;padding:25px 10px}
+h1{color:#8b9cff;margin-bottom:8px}
+p{color:#b9bfd5;line-height:1.5}
+.card{background:#1b1f30;border:1px solid #343950;border-radius:16px;padding:18px;margin:16px 0}
+label{display:block;margin:14px 0 7px;font-weight:bold}
+textarea,select,input{width:100%;padding:13px;border-radius:9px;border:1px solid #424965;background:#111523;color:white;font-size:16px}
+textarea{min-height:110px;resize:vertical}
+button{border:0;border-radius:9px;padding:12px 15px;background:#7588ff;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:12px}
+button.secondary{background:#303750}
+.output{white-space:pre-wrap;background:#111523;border-radius:9px;padding:13px;margin-top:12px;min-height:45px}
+.small{font-size:13px;color:#aab1c9}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>🌎 AI World Content</h1>
+<p>Your AI Video & YouTube Studio</p>
+</header>
+
+<section class="card">
+<h2>🎬 AI Video Prompt Maker</h2>
+<label for="topic">Video ka topic likho</label>
+<textarea id="topic" placeholder="Jaise: Jungle mein Ghibli style cooking video"></textarea>
+<label for="style">Video style</label>
+<select id="style">
+<option>Ghibli Animation</option>
+<option>Realistic Cinematic</option>
+<option>Horror Mystery</option>
+<option>Car Restoration</option>
+<option>3D Animation</option>
+</select>
+<label for="ratio">Video format</label>
+<select id="ratio">
+<option value="9:16">9:16 YouTube Shorts</option>
+<option value="16:9">16:9 YouTube Video</option>
+</select>
+<button onclick="makePrompt()">Generate Video Prompt</button>
+<div id="promptOut" class="output">Your prompt will appear here.</div>
+<button class="secondary" onclick="copyText('promptOut')">Copy Prompt</button>
+</section>
+
+<section class="card">
+<h2>📺 YouTube Title & Description</h2>
+<label for="ytTopic">Video ka topic</label>
+<input id="ytTopic" placeholder="Apne video ka naam likho">
+<button onclick="makeSEO()">Generate Title & Description</button>
+<div id="seoOut" class="output">Your title and description will appear here.</div>
+<button class="secondary" onclick="copyText('seoOut')">Copy Text</button>
+</section>
+
+<section class="card">
+<h2>🎥 AI Video Generator</h2>
+<p>Actual video generation ke liye AI video model aur secure backend/API connect karna hoga.</p>
+<button onclick="alert('Next step: connect a video model and secure backend. This feature is not connected yet.')">Set Up Video Generation</button>
+</section>
+<p class="small" style="text-align:center">AI World Content Studio • Starter Version</p>
+</main>
+<script>
+function makePrompt(){
+const topic=document.getElementById('topic').value.trim();
+const style=document.getElementById('style').value;
+const ratio=document.getElementById('ratio').value;
+if(!topic){alert('Pehle video ka topic likho!');return;}
+document.getElementById('promptOut').textContent=
+"Create a "+style+" video about: "+topic+". "+
+"Aspect ratio "+ratio+". Start with a strong visual hook. "+
+"Show clear, detailed actions and smooth camera movement. "+
+"Keep characters and scene consistent. Use attractive lighting, "+
+"clean visuals, and a satisfying ending. Avoid flicker, distorted objects, "+
+"random scene changes, and unwanted text. High quality.";
+}
+function makeSEO(){
+const topic=document.getElementById('ytTopic').value.trim();
+if(!topic){alert('Pehle video ka topic likho!');return;}
+document.getElementById('seoOut').textContent=
+"TITLE:\n"+topic+" 🔥 | Amazing AI Video #Shorts\n\n"+
+"DESCRIPTION:\nWatch this amazing "+topic+" video created with AI! "+
+"If you enjoyed it, LIKE, SUBSCRIBE to AI World Content, and COMMENT below.\n\n"+
+"#AI #Shorts #AIWorldContent";
+}
+function copyText(id){
+const text=document.getElementById(id).textContent;
+if(!text||text.includes('will appear here')){alert('Pehle generate karo!');return;}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>alert('Text select karke copy kar lo.'));
+}else{alert('Text select karke copy kar lo.');}
+}
+</script>
+</body>
+</html>
